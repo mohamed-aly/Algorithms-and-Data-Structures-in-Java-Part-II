@@ -2,12 +2,12 @@ package com.algorithms.prefixTrees;
 
 public class App {
     public static void main(String[] args) {
-        Trie trie = new Trie();
-        trie.insert("Mohamed");
-        trie.insert("ahmed");
-        trie.insert("aly");
-        trie.insert("elena");
+        Trie<String> trie = new Trie<>();
+        trie.insert("Mohamed", "Mohamed@Gmail.com");
+        trie.insert("ahmed", "ahmed@Gmail.com");
+        trie.insert("aly", "aly@Gmail.com");
+        trie.insert("elena", "elena@Gmail.com");
 
-        System.out.println(trie.has("Mohamed"));
+        System.out.println(trie.searchAsMap("elena"));
     }
 }
