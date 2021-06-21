@@ -43,4 +43,10 @@ public class Node {
     public String toString() {
         return this.character;
     }
+
+    public Node getChild(int index){
+        return this.children[index];
+    }
+
+
 }
