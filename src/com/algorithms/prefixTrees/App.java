@@ -7,9 +7,9 @@ public class App {
         Trie<String> trie = new Trie<>();
         trie.insert("adam", "Mohamed@Gmail.com");
         trie.insert("adaa", "ahmed@Gmail.com");
-        trie.insert("adzzz", "aly@Gmail.com");
-        trie.insert("admm", "elena@Gmail.com");
+        trie.insert("adazz", "aly@Gmail.com");
+        trie.insert("adamm", "elena@Gmail.com");
 
-        System.out.println(trie.traverse());
+        System.out.println(trie.longestCommonPrefix());
     }
 }

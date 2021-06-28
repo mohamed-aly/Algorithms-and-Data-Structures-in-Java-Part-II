@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Trie<T extends Comparable<T>> {
     private Node<T> root;
+    private int indexOfSingleChild;
 
     public Trie() {
         this.root = new Node<>("");
@@ -95,6 +96,31 @@ public class Trie<T extends Comparable<T>> {
 
     public List<String> traverse(){
         return allWordsWithPrefix("");
+    }
+
+    public String longestCommonPrefix(){
+        Node<T> node = this.root;
+        StringBuilder lcp = new StringBuilder();
+
+        while(countNumOfChildren(node) == 1){
+            node = node.getChild(indexOfSingleChild);
+            lcp.append((char) (indexOfSingleChild + 'a'));
+        }
+
+        return lcp.toString();
+    }
+
+    private int countNumOfChildren(Node<T> node) {
+        int numOfChildren = 0;
+
+        for(int i = 0; i < node.getChildren().length; i++){
+            if(node.getChild(i) != null){
+                numOfChildren++;
+                this.indexOfSingleChild = i;
+            }
+        }
+
+        return numOfChildren;
     }
 
 }
