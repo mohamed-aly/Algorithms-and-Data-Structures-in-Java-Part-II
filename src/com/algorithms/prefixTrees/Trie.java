@@ -1,6 +1,8 @@
 package com.algorithms.prefixTrees;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Trie<T extends Comparable<T>> {
     private Node<T> root;
@@ -61,6 +63,35 @@ public class Trie<T extends Comparable<T>> {
         }
 
         return tempNode.getValue();
+    }
+
+    public List<String> allWordsWithPrefix(String prefix) {
+        Node<T> node = this.root;
+        List<String> words = new ArrayList<>();
+
+        for(int i = 0; i<prefix.length(); i++){
+            char c = prefix.charAt(i);
+            int index = c-'a';
+            node = node.getChild(index);
+        }
+
+        collect(node, prefix, words);
+
+        return words;
+    }
+
+    private void collect(Node<T> node, String prefix, List<String> words) {
+        if(node == null) return;
+
+        if(node.isLeaf()){
+            words.add(prefix);
+        }
+
+        for(Node<T> child : node.getChildren()){
+            if(child == null) continue;
+            String character = child.getCharacter();
+            collect(child, prefix+character, words);
+        }
     }
 
 }
