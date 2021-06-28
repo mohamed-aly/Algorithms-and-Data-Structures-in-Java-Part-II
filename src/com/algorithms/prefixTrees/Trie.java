@@ -1,7 +1,6 @@
 package com.algorithms.prefixTrees;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Trie<T extends Comparable<T>> {
@@ -92,6 +91,10 @@ public class Trie<T extends Comparable<T>> {
             String character = child.getCharacter();
             collect(child, prefix+character, words);
         }
+    }
+
+    public List<String> traverse(){
+        return allWordsWithPrefix("");
     }
 
 }

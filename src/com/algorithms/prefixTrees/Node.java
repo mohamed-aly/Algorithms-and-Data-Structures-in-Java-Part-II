@@ -1,7 +1,5 @@
 package com.algorithms.prefixTrees;
 
-import java.lang.reflect.Array;
-
 public class Node<T extends Comparable<T>> {
     private String character;
     private Node<T>[] children;

@@ -10,8 +10,6 @@ public class App {
         trie.insert("adzzz", "aly@Gmail.com");
         trie.insert("admm", "elena@Gmail.com");
 
-        List<String> list = trie.allWordsWithPrefix("adam");
-
-        System.out.println(list);
+        System.out.println(trie.traverse());
     }
 }
