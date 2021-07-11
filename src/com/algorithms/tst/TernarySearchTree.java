@@ -28,5 +28,32 @@ public class TernarySearchTree<T extends Comparable<T>> {
 
     }
 
+    public T get(String key) {
+        Node<T> node = get(this.root, key, 0);
+
+        if (node == null) {
+            return null;
+        }
+
+        return node.getValue();
+    }
+
+    private Node<T> get(Node<T> node, String key, int index) {
+        if (node == null) return null;
+
+        char c = key.charAt(index);
+
+        if (c < node.getCharacter()) {
+            return get(node.getLeftChild(), key, index);
+        } else if (c > node.getCharacter()) {
+            return get(node.getRightChild(), key, index);
+        } else if (index < key.length() - 1) {
+            return get(node.getMiddleChild(), key, index + 1);
+        } else {
+            return node;
+        }
+
+    }
+
 
 }
