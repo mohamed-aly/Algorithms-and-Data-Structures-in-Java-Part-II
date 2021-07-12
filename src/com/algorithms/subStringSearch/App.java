@@ -2,6 +2,7 @@ package com.algorithms.subStringSearch;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println(BruteForceSearch.search("this is test", "test"));
+        BoyerMooreSearch boyerMooreSearch = new BoyerMooreSearch("this is a test...", "is");
+        System.out.println(boyerMooreSearch.search());
     }
 }
