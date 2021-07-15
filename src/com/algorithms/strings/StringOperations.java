@@ -12,7 +12,7 @@ public class StringOperations {
 
 
     public static String evaluate(String expression) {
-        //"5 / 5 + 3 - 2 * 6 / 6"
+
         expression = expression.replace(" ", "");
 
         while (getOperatorIndex(expression) > 0) {
@@ -23,47 +23,74 @@ public class StringOperations {
     }
 
     private static String replaceSyllablesWithEvaluations(String expression, int operatorIndex) {
+        //"5 / 5 + (3 - 2) * 6 / 6"
+        char operator = expression.charAt(operatorIndex);
+        boolean isBracketsSyllable = false;
+
+        if (operator == '(') {
+            isBracketsSyllable = true;
+            int endBracketIndex = expression.indexOf(')');
+            String bracketsSyllable = expression.substring(operatorIndex + 1, endBracketIndex);
+            operatorIndex = getOperatorIndex(bracketsSyllable) + operatorIndex + 1;
+            operator = expression.charAt(operatorIndex);
+        }
+
         StringBuilder firstOperandBuilder = new StringBuilder();
         StringBuilder secondOperandBuilder = new StringBuilder();
-
         for (int i = operatorIndex - 1; i >= 0; i--) {
             if (isOperand(expression.charAt(i))) {
                 firstOperandBuilder.append(expression.charAt(i));
-            }else{
+            } else {
                 break;
             }
         }
-        
+
         firstOperandBuilder.reverse();
-        
-        for(int i = operatorIndex+1; i<expression.length(); i++){
+
+        for (int i = operatorIndex + 1; i < expression.length(); i++) {
             if (isOperand(expression.charAt(i))) {
                 secondOperandBuilder.append(expression.charAt(i));
-            }else{
+            } else {
                 break;
             }
         }
-        
+
         String firstOperand = firstOperandBuilder.toString();
         String secondOperand = secondOperandBuilder.toString();
-        char operator = expression.charAt(operatorIndex);
 
-        String syllable = firstOperand + operator + secondOperand;
+        String syllable;
+        if (isBracketsSyllable) {
+            syllable = '(' + firstOperand + operator + secondOperand + ')';
+        }else{
+            syllable = firstOperand + operator + secondOperand;
+        }
+
         double evaluation = calculateSyllable(Double.parseDouble(firstOperand), Double.parseDouble(secondOperand), operator);
         return expression.replace(syllable, String.valueOf(evaluation));
     }
 
     private static double calculateSyllable(double firstOperand, double secondOperand, char operator) {
         double evaluation;
-        switch (operator){
-            case '/': evaluation = firstOperand / secondOperand; break;
-            case '*': evaluation = firstOperand * secondOperand; break;
-            case '+': evaluation = firstOperand + secondOperand; break;
-            case '-': evaluation = firstOperand - secondOperand; break;
+        switch (operator) {
+            case '^':
+                evaluation = Math.pow(firstOperand, secondOperand);
+                break;
+            case '/':
+                evaluation = firstOperand / secondOperand;
+                break;
+            case '*':
+                evaluation = firstOperand * secondOperand;
+                break;
+            case '+':
+                evaluation = firstOperand + secondOperand;
+                break;
+            case '-':
+                evaluation = firstOperand - secondOperand;
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + operator);
         }
-        
+
         return evaluation;
     }
 
@@ -72,7 +99,11 @@ public class StringOperations {
     }
 
     private static int getOperatorIndex(String expression) {
-        if (expression.contains("/")) {
+        if (expression.contains("(")) {
+            return expression.indexOf('(');
+        }else if (expression.contains("^")) {
+            return expression.indexOf('^');
+        }else if (expression.contains("/")) {
             return expression.indexOf('/');
         } else if (expression.contains("*")) {
             return expression.indexOf('*');
