@@ -1,6 +1,19 @@
 package com.algorithms.strings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringOperations {
+
+    public static List<String> getSuffixes(String text){
+        int length = text.length();
+        List<String> suffixes = new ArrayList<>();
+        for(int index = 0; index<length; index++){
+            suffixes.add(text.substring(index, length));
+        }
+
+        return suffixes;
+    }
 
     public static String reverseString(String text) {
         StringBuilder stringBuilder = new StringBuilder();
