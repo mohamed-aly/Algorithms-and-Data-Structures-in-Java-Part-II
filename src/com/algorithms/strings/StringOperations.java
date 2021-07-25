@@ -5,14 +5,24 @@ import java.util.List;
 
 public class StringOperations {
 
-    public static List<String> getSuffixes(String text){
+    public static List<String> getSuffixes(String text) {
         int length = text.length();
         List<String> suffixes = new ArrayList<>();
-        for(int index = 0; index<length; index++){
+        for (int index = 0; index < length; index++) {
             suffixes.add(text.substring(index, length));
         }
 
         return suffixes;
+    }
+
+    public static List<String> getPrefixes(String text) {
+        int length = text.length();
+        List<String> prefixes = new ArrayList<>();
+        for (int index = 1; index < length + 1; index++) {
+            prefixes.add(text.substring(0, index));
+        }
+
+        return prefixes;
     }
 
     public static String reverseString(String text) {
@@ -27,7 +37,6 @@ public class StringOperations {
     public static String evaluate(String expression) {
 
         expression = expression.replace(" ", "");
-
 
 
         return replaceSyllablesWithEvaluations(expression);
@@ -118,9 +127,9 @@ public class StringOperations {
     private static int getOperatorIndex(String expression) {
         if (expression.contains("(")) {
             return expression.indexOf('(');
-        }else if (expression.contains("^")) {
+        } else if (expression.contains("^")) {
             return expression.indexOf('^');
-        }else if (expression.contains("/")) {
+        } else if (expression.contains("/")) {
             return expression.indexOf('/');
         } else if (expression.contains("*")) {
             return expression.indexOf('*');
