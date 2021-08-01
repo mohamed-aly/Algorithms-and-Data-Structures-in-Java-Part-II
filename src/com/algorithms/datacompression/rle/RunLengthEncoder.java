@@ -1,4 +1,4 @@
-package com.algorithms.datacompression;
+package com.algorithms.datacompression.rle;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package com.algorithms.datacompression;
+package com.algorithms.datacompression.rle;
 
 public class App {
     public static void main(String[] args) {
